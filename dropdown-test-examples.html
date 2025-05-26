@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dropdown Test Examples</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    section {
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    select {
+      width: 200px;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Dropdown Test Examples</h1>
+
+  <!-- 1. Basic Dropdown -->
+  <section>
+    <label for="basic-dropdown">Basic Dropdown</label>
+    <select id="basic-dropdown" data-test-id="dropdown-basic">
+      <option value="">Select an option</option>
+      <option value="1">Option 1</option>
+      <option value="2">Option 2</option>
+      <option value="3">Option 3</option>
+    </select>
+  </section>
+
+  <!-- 2. Disabled Option -->
+  <section>
+    <label for="disabled-option-dropdown">Dropdown with Disabled Option</label>
+    <select id="disabled-option-dropdown" data-test-id="dropdown-disabled">
+      <option value="1">Option 1</option>
+      <option value="2" disabled>Option 2 (disabled)</option>
+      <option value="3">Option 3</option>
+    </select>
+  </section>
+
+  <!-- 3. Grouped Options -->
+  <section>
+    <label for="grouped-dropdown">Grouped Options</label>
+    <select id="grouped-dropdown" data-test-id="dropdown-grouped">
+      <optgroup label="Fruits">
+        <option value="apple">Apple</option>
+        <option value="banana">Banana</option>
+      </optgroup>
+      <optgroup label="Vegetables">
+        <option value="carrot">Carrot</option>
+        <option value="lettuce">Lettuce</option>
+      </optgroup>
+    </select>
+  </section>
+
+  <!-- 4. Multi-Select Dropdown -->
+  <section>
+    <label for="multi-dropdown">Multi-Select Dropdown</label>
+    <select id="multi-dropdown" multiple data-test-id="dropdown-multi">
+      <option value="red">Red</option>
+      <option value="blue">Blue</option>
+      <option value="green">Green</option>
+    </select>
+  </section>
+
+  <!-- 5. Preselected Option -->
+  <section>
+    <label for="preselected-dropdown">Dropdown with Preselected Option</label>
+    <select id="preselected-dropdown" data-test-id="dropdown-preselected">
+      <option value="1">Option 1</option>
+      <option value="2" selected>Option 2</option>
+      <option value="3">Option 3</option>
+    </select>
+  </section>
+
+  <!-- 6. Custom Styled Dropdown -->
+  <section>
+    <label for="custom-dropdown">Custom Styled Dropdown (Tailwind-like)</label>
+    <div style="position: relative; display: inline-block;">
+      <select id="custom-dropdown" data-test-id="dropdown-custom"
+              style="appearance: none; border: 1px solid #ccc; border-radius: 5px; padding: 5px 10px; width: 220px;">
+        <option>Custom Option 1</option>
+        <option>Custom Option 2</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Display result -->
+  <section>
+    <h2>Selected Values</h2>
+    <pre id="output"></pre>
+  </section>
+
+  <script>
+    const output = document.getElementById('output');
+    const selects = document.querySelectorAll('select');
+
+    selects.forEach(select => {
+      select.addEventListener('change', () => {
+        let results = {};
+        selects.forEach(s => {
+          const value = [...s.selectedOptions].map(o => o.value);
+          results[s.id] = s.multiple ? value : value[0];
+        });
+        output.textContent = JSON.stringify(results, null, 2);
+      });
+    });
+  </script>
+
+</body>
+</html>
