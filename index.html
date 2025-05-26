@@ -99,6 +99,22 @@
     <h2>Selected Values</h2>
     <pre id="output"></pre>
   </section>
+<h2>Select Cities</h2>
+  <select id="city-select" multiple="multiple" style="width:300px;">
+    <option value="new-york">New York</option>
+    <option value="los-angeles">Los Angeles</option>
+    <option value="chicago">Chicago</option>
+    <option value="houston">Houston</option>
+    <option value="phoenix">Phoenix</option>
+    <option value="philadelphia">Philadelphia</option>
+    <option value="san-antonio">San Antonio</option>
+    <option value="san-diego">San Diego</option>
+    <option value="dallas">Dallas</option>
+    <option value="san-jose">San Jose</option>
+  </select>
+
+  <div class="output" id="selected-cities"></div>
+
 
   <script>
     const output = document.getElementById('output');
@@ -112,6 +128,18 @@
           results[s.id] = s.multiple ? value : value[0];
         });
         output.textContent = JSON.stringify(results, null, 2);
+      });
+    });
+
+      $(document).ready(function() {
+      $('#city-select').select2({
+        placeholder: "Select cities",
+        allowClear: true
+      });
+
+      $('#city-select').on('change', function() {
+        const selected = $(this).val() || [];
+        $('#selected-cities').text("Selected: " + selected.join(', '));
       });
     });
   </script>
