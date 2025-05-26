@@ -115,22 +115,42 @@
 
 
 
+
   <script>
-    const output = document.getElementById('output');
-    const selects = document.querySelectorAll('select');
+    const updates = [
+      { id: "basic-dropdown", output: "selected-basic" },
+      { id: "disabled-option-dropdown", output: "selected-disabled" },
+      { id: "grouped-dropdown", output: "selected-grouped" },
+      { id: "multi-dropdown", output: "selected-multi" },
+      { id: "preselected-dropdown", output: "selected-preselected" },
+      { id: "custom-dropdown", output: "selected-custom" }
+    ];
 
-    selects.forEach(select => {
-      select.addEventListener('change', () => {
-        let results = {};
-        selects.forEach(s => {
-          const value = [...s.selectedOptions].map(o => o.value);
-          results[s.id] = s.multiple ? value : value[0];
+    const output = document.getElementById("output");
+
+    updates.forEach(({ id, output: outputId }) => {
+      const select = document.getElementById(id);
+      const resultDiv = document.getElementById(outputId);
+
+      const updateSelection = () => {
+        const selected = [...select.selectedOptions].map(opt => opt.value || "(none)");
+        resultDiv.textContent = "Selected: " + (select.multiple ? selected.join(", ") : selected[0]);
+      };
+
+      select.addEventListener("change", () => {
+        updateSelection();
+        const allSelections = {};
+        updates.forEach(({ id: sid }) => {
+          const sel = document.getElementById(sid);
+          const val = [...sel.selectedOptions].map(o => o.value);
+          allSelections[sid] = sel.multiple ? val : val[0];
         });
-        output.textContent = JSON.stringify(results, null, 2);
+        output.textContent = JSON.stringify(allSelections, null, 2);
       });
-    });
 
-</script>
+      updateSelection(); // initial display
+    });
+  </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
