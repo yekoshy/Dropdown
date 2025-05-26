@@ -36,7 +36,7 @@
       <option value="2">Option 2</option>
       <option value="3">Option 3</option>
     </select>
-    <div class="selected-value" id="dropdown-basic"></div>
+    <div class="selected-value" id="selected-basic"></div>
   </section>
 
   <!-- 2. Disabled Option -->
@@ -47,7 +47,7 @@
       <option value="2" disabled>Option 2 (disabled)</option>
       <option value="3">Option 3</option>
     </select>
-    <div class="selected-value" id="dropdown-disabled"></div>
+    <div class="selected-value" id="selected-disabled"></div>
   </section>
 
   <!-- 3. Grouped Options -->
@@ -63,7 +63,7 @@
         <option value="lettuce">Lettuce</option>
       </optgroup>
     </select>
-    <div class="selected-value" id="dropdown-grouped"></div>
+    <div class="selected-value" id="selected-grouped"></div>
   </section>
 
   <!-- 4. Multi-Select Dropdown -->
@@ -74,7 +74,7 @@
       <option value="blue">Blue</option>
       <option value="green">Green</option>
     </select>
-    <div class="selected-value" id="dropdown-multi"></div>
+    <div class="selected-value" id="selected-multi"></div>
   </section>
 
   <!-- 5. Preselected Option -->
@@ -85,8 +85,10 @@
       <option value="2" selected>Option 2</option>
       <option value="3">Option 3</option>
     </select>
-    <div class="selected-value" id="dropdown-preselected"></div>
+    <div class="selected-value" id="selected-preselected"></div>
   </section>
+
+
 
  
   <h2>Select Cities</h2>
@@ -123,7 +125,7 @@
       { id: "grouped-dropdown", output: "selected-grouped" },
       { id: "multi-dropdown", output: "selected-multi" },
       { id: "preselected-dropdown", output: "selected-preselected" },
-      { id: "custom-dropdown", output: "selected-custom" }
+      { id: "city-select", output: "selected-cities" },
     ];
 
     const output = document.getElementById("output");
