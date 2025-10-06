@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Select List Demo</title>
+    <style>
+        /* --- Basic Styling to match the image --- */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .header {
+            padding: 15px 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .content {
+            padding: 20px;
+        }
+        p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .label-text {
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        
+        /* --- Styles for Single Select (Day) --- */
+        #day-select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1em;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23333" d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 14px;
+            cursor: pointer;
+        }
+        #selected-day-display {
+            font-weight: bold;
+            margin-top: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee; /* Separator */
+        }
+
+        /* --- Styles for Multi Select (State) --- */
+        .multi-select-header {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 25px;
+            color: #333;
+        }
+
+        #state-select {
+            width: 100%;
+            /* Make it look like the image: a visible list box */
+            height: 180px; 
+            border: 1px solid #ccc;
+            padding: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        /* Styling for the buttons */
+        .button-group {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        .button-group button {
+            padding: 10px 15px;
+            border: 1px solid #286090;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #first-selected-btn {
+            background-color: #337ab7; /* Blue */
+            color: white;
+        }
+        #first-selected-btn:hover {
+            background-color: #286090;
+        }
+        #get-all-selected-btn {
+            background-color: #337ab7; /* Blue */
+            color: white;
+        }
+        #get-all-selected-btn:hover {
+            background-color: #286090;
+        }
+
+        /* Style for the displayed selected values */
+        #multi-select-display {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            Select List Demo
+        </div>
+        <div class="content">
+            
+            <p>Selected value from the list will display below the dropdown</p>
+            <p class="label-text">Select a day (select one):</p>
+            
+            <select id="day-select">
+                <option value="" selected>Please select</option>
+                <option value="Sunday">Sunday</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+            </select>
+
+            <div id="selected-day-display">
+                </div>
+
+
+            <div class="multi-select-header">
+                Multi Select List Demo
+            </div>
+            <p>By clicking on the buttons, you can get value from the list which will display just below the buttons</p>
+
+            <select id="state-select" multiple size="8">
+                <option value="California">California</option>
+                <option value="Florida">Florida</option>
+                <option value="New Jersey">New Jersey</option>
+                <option value="New York">New York</option>
+                <option value="Ohio">Ohio</option>
+                <option value="Texas">Texas</option>
+                <option value="Pennsylvania">Pennsylvania</option>
+                <option value="Washington">Washington</option>
+            </select>
+
+            <div class="button-group">
+                <button id="first-selected-btn">First Selected</button>
+                <button id="get-all-selected-btn">Get All Selected</button>
+            </div>
+
+            <div id="multi-select-display">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        /* =======================================
+           1. Single Select (Day) Functionality
+           ======================================= */
+
+        const daySelect = document.getElementById('day-select');
+        const dayDisplayDiv = document.getElementById('selected-day-display');
+
+        function updateDayDisplay(selectedValue) {
+            if (selectedValue && selectedValue !== "Please select") {
+                dayDisplayDiv.innerHTML = `Day selected :- <strong>${selectedValue}</strong>`;
+            } else {
+                dayDisplayDiv.innerHTML = '';
+            }
+        }
+        
+        // Initial setup and event listener
+        updateDayDisplay(daySelect.value); 
+        daySelect.addEventListener('change', (event) => {
+            updateDayDisplay(event.target.value);
+        });
+
+
+        /* =======================================
+           2. Multi Select (State) Functionality
+           ======================================= */
+
+        const stateSelect = document.getElementById('state-select');
+        const firstBtn = document.getElementById('first-selected-btn');
+        const allBtn = document.getElementById('get-all-selected-btn');
+        const multiDisplayDiv = document.getElementById('multi-select-display');
+
+        // Function for 'First Selected' Button
+        firstBtn.addEventListener('click', () => {
+            // Find the first option in the list that is marked as selected
+            const firstOption = Array.from(stateSelect.options).find(option => option.selected);
+            
+            if (firstOption) {
+                multiDisplayDiv.innerHTML = `First selected option is : <strong>${firstOption.value}</strong>`;
+            } else {
+                multiDisplayDiv.innerHTML = `First selected option is : <strong>None selected</strong>`;
+            }
+        });
+
+        // Function for 'Get All Selected' Button
+        allBtn.addEventListener('click', () => {
+            // Filter all options to get only the selected ones
+            const selectedOptions = Array.from(stateSelect.options)
+                .filter(option => option.selected)
+                .map(option => option.value); // Get the value (state name)
+
+            if (selectedOptions.length > 0) {
+                // Join the array into a comma-separated string
+                const selectedString = selectedOptions.join(', ');
+                multiDisplayDiv.innerHTML = `Options selected are : <strong>${selectedString}</strong>`;
+            } else {
+                multiDisplayDiv.innerHTML = `Options selected are : <strong>None selected</strong>`;
+            }
+        });
+
+    </script>
+
+</body>
+</html>
